@@ -6,25 +6,30 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ['modifyvm', :id, '--cableconnected1', 'on']
-  end
-
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-
-
-
   config.vm.box = "jasonc/centos7"
 
-  config.vm.hostname = "testbox01"
+  config.vm.define "admin01" do |admin01|
+    admin01.vm.hostname = "admin01"
+    admin01.vm.network "private_network", ip: "10.9.9.10"
+  end
 
-  config.vm.network "private_network", ip: "10.9.8.7"
+  config.vm.define "server01" do |server01|
+    server01.vm.hostname = "server01"
+    server01.vm.network "private_network", ip: "10.9.9.11"
+  end
+
+  config.vm.define "server02" do |server02|
+    server02.vm.hostname = "server02"
+    server02.vm.network "private_network", ip: "10.9.9.12"
+  end
+
+
 
 
   # Disable automatic box update checking. If you disable this, then
