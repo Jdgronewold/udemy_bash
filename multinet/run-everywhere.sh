@@ -22,7 +22,7 @@ usage() {
 }
 
 log() {
-  if [[ $VERBOSE -eq 'true' ]]
+  if [[ "${VERBOSE}" = 'true' ]]
   then
     echo "${@}"
   fi
@@ -54,9 +54,9 @@ COMMAND="${@}"
 
 for SERVER in $(cat ${SERVER_FILE})
 do
-  if [[ $DRY_RUN -eq 'true' ]]
+  if [[ "${DRY_RUN}" = 'true' ]]
   then
-    echo "Running ${COMMAND} on ${SERVER}"
+    echo "DRY RUN: Running ${COMMAND} on ${SERVER}"
   else
     log "Running ${COMMAND} on ${SERVER}"
     ssh "${SSH_OPTIONS}" $SERVER "${SUDO} ${COMMAND}"
